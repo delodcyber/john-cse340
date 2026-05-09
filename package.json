@@ -1,0 +1,27 @@
+{
+  "name": "john-cse340",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+  "dev": "nodemon",
+  "start": "node server.js"
+},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/delodcyber/john-cse340.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/delodcyber/john-cse340/issues"
+  },
+  "homepage": "https://github.com/delodcyber/john-cse340#readme",
+  "dependencies": {
+    "express": "^5.2.1"
+  },
+  "type": "module",
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
