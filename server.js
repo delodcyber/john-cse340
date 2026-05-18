@@ -4,6 +4,7 @@ import express from 'express';
 import { testConnection } from './src/models/db.js';
 import { getAllOrganizations } from './src/models/organizations.js';
 import { getAllProjects } from './src/models/project.js';
+import { getAllCategories } from './src/models/category.js';
 
 // Define the the application environment
 const NODE_ENV = process.env.NODE_ENV?.toLowerCase() || 'production';
@@ -54,7 +55,17 @@ app.get('/', async (req, res) => {
 
 app.get('/categories', async (req, res) => {
     const title = 'Service Project Categories';
-    res.render('categories', { title });
+    let categories = [];
+    let errorMessage = null;
+
+    try {
+        categories = await getAllCategories();
+    } catch (error) {
+        console.error('Failed to load categories:', error);
+        errorMessage = 'Unable to load categories at this time.';
+    }
+
+    res.render('categories', { title, categories, errorMessage });
 });
 
 app.get('/organizations', async (req, res) => {
