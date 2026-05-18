@@ -76,6 +76,21 @@ app.get('/organizations', async (req, res) => {
     res.render('organizations', { title, organizations, errorMessage });
 });
 
+app.get('/projects', async (req, res) => {
+    const title = 'Service Projects';
+    let projects = [];
+    let errorMessage = null;
+
+    try {
+        projects = await getAllProjects();
+    } catch (error) {
+        console.error('Failed to load projects:', error);
+        errorMessage = 'Unable to load projects at this time.';
+    }
+
+    res.render('projects', { title, projects, errorMessage });
+});
+
 app.listen(PORT, async () => {
   try {
     await testConnection();
