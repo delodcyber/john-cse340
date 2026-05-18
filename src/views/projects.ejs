@@ -7,16 +7,21 @@
         <p class="error"><%= errorMessage %></p>
     <% } %>
 
-    <ul>
-        <% if (projects && projects.length) { %>
-            <% projects.forEach((project) => { %>
-                <li>
-                    <strong><%= project.title %></strong> - <%= project.description %> (Organization: <%= project.organization_name || 'Unknown' %>, Location: <%= project.project_location %>, Date: <%= project.project_date.toDateString() %>)
-                </li>
-            <% }) %>
-        <% } else { %>
-            <li>No upcoming service projects available.</li>
-        <% } %>
-    </ul>
+    <% if (organizations && organizations.length) { %>
+        <% organizations.forEach((organization) => { %>
+            <section class="organization-group">
+                <h3><%= organization.organization_name %></h3>
+                <ul>
+                    <% organization.projects.forEach((project) => { %>
+                        <li>
+                            <strong><%= project.title %></strong> - <%= project.description %> (Location: <%= project.project_location %>, Date: <%= project.project_date.toDateString() %>)
+                        </li>
+                    <% }) %>
+                </ul>
+            </section>
+        <% }) %>
+    <% } else { %>
+        <p>No upcoming service projects available.</p>
+    <% } %>
 </main>
 <%- include('partials/footer') %>
