@@ -6,12 +6,12 @@
     <% if (errorMessage) { %>
         <p class="error"><%= errorMessage %></p>
     <% } %>
-    
+
     <ul>
         <% if (projects && projects.length) { %>
             <% projects.forEach((project) => { %>
                 <li>
-                    <strong><%= project.title %></strong> - <%= project.description %> (Location: <%= project.project_location %>, Date: <%= project.project_date.toDateString() %>)
+                    <strong><%= project.title %></strong> - <%= project.description %> (Organization: <%= project.organization_name || 'Unknown' %>, Location: <%= project.project_location %>, Date: <%= project.project_date.toDateString() %>)
                 </li>
             <% }) %>
         <% } else { %>
