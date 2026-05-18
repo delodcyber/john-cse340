@@ -2,6 +2,11 @@
 <main>
     <h1><%= title %></h1>
     <h2>Upcoming Service Projects</h2>
+
+    <% if (errorMessage) { %>
+        <p class="error"><%= errorMessage %></p>
+    <% } %>
+    
     <ul>
         <% if (projects && projects.length) { %>
             <% projects.forEach((project) => { %>
