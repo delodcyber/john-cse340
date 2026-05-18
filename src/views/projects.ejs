@@ -3,9 +3,15 @@
     <h1><%= title %></h1>
     <h2>Upcoming Service Projects</h2>
     <ul>
-        <li>Park Cleanup - Join us to clean up local parks and make them beautiful!</li>
-        <li>Food Drive - Help collect and distribute food to those in need.</li>
-        <li>Community Tutoring - Volunteer to tutor students in various subjects.</li>
+        <% if (projects && projects.length) { %>
+            <% projects.forEach((project) => { %>
+                <li>
+                    <strong><%= project.title %></strong> - <%= project.description %> (Location: <%= project.project_location %>, Date: <%= project.project_date.toDateString() %>)
+                </li>
+            <% }) %>
+        <% } else { %>
+            <li>No upcoming service projects available.</li>
+        <% } %>
     </ul>
 </main>
 <%- include('partials/footer') %>
