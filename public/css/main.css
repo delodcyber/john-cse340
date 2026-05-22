@@ -48,11 +48,11 @@ nav li {
 
 nav a {
     display: block;
-    padding: 12px 20px;
-    color: #bdb10e;
+    padding: 12px 40px;
+    color: #ebe9d0;
     text-decoration: none;
     font-weight: 500;
-    font-size: 16px;
+    font-size: 20px;
     transition: all 0.3s ease;
     border-bottom: 3px solid transparent;
 }
