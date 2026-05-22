@@ -1,25 +1,37 @@
 <%- include('partials/header') %>
 <main>
     <h1><%= title %></h1>
-    <h2>Upcoming Service Projects</h2>
 
     <% if (errorMessage) { %>
         <p class="error"><%= errorMessage %></p>
     <% } %>
 
-    <% if (organizations && organizations.length) { %>
-        <% organizations.forEach((organization) => { %>
-            <section class="organization-group">
-                <h3><%= organization.organization_name %></h3>
-                <ul>
-                    <% organization.projects.forEach((project) => { %>
-                        <li>
-                            <strong><%= project.title %></strong> - <%= project.description %> (Location: <%= project.project_location %>, Date: <%= project.project_date.toDateString() %>)
-                        </li>
-                    <% }) %>
-                </ul>
-            </section>
-        <% }) %>
+    <% if (projects && projects.length) { %>
+        <ul>
+            <% projects.forEach((project) => { %>
+                <li>
+                    <!-- Make the project title a link to the project details page -->
+                    <strong><a href="/project/<%= project.project_id %>"><%= project.title %></a></strong>
+                    
+                    <!-- Display the organization name as a link to the organization details page -->
+                    <% if (project.organization_name) { %>
+                        <p>Organization: <a href="/organization/<%= project.organization_id %>"><%= project.organization_name %></a></p>
+                    <% } %>
+                    
+                    <!-- Display other project details -->
+                    <% if (project.description) { %>
+                        <p><%= project.description %></p>
+                    <% } %>
+                    
+                    <p>
+                        <% if (project.project_location) { %>
+                            Location: <%= project.project_location %> | 
+                        <% } %>
+                        Date: <%= project.project_date %>
+                    </p>
+                </li>
+            <% }) %>
+        </ul>
     <% } else { %>
         <p>No upcoming service projects available.</p>
     <% } %>

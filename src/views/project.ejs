@@ -1,0 +1,29 @@
+<%- include('partials/header') %>
+<main>
+    <h1><%= title %></h1>
+    
+    <% if (errorMessage) { %>
+        <p class="error"><%= errorMessage %></p>
+    <% } %>
+
+    <% if (project) { %>
+        <div class="project-details">
+            <h2><%= project.title %></h2>
+            
+            <% if (project.description) { %>
+                <p><strong>Description:</strong> <%= project.description %></p>
+            <% } %>
+            
+            <p><strong>Date:</strong> <%= project.project_date %></p>
+            
+            <% if (project.project_location) { %>
+                <p><strong>Location:</strong> <%= project.project_location %></p>
+            <% } %>
+            
+            <% if (project.organization_name) { %>
+                <p><strong>Organization:</strong> <a href="/organization/<%= project.organization_id %>"><%= project.organization_name %></a></p>
+            <% } %>
+        </div>
+    <% } %>
+</main>
+<%- include('partials/footer') %>
