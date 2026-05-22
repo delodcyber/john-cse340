@@ -14,7 +14,7 @@
                     <% if (organization.logo_filename) { %>
                         <img src="/images/<%= organization.logo_filename %>" alt="<%= organization.organization_name %> logo">
                     <% } %>
-                    <strong><%= organization.organization_name %></strong>
+                    <strong><a href="/organization/<%= organization.organization_id %>"><%= organization.organization_name %></a></strong>
                     <p><a href="mailto:<%= organization.contact_email %>"><%= organization.contact_email %></a></p>
                     <% if (organization.description) { %>
                         <p><%= organization.description %></p>

@@ -1,4 +1,4 @@
-import { getAllProjects } from '../models/project.js';
+import { getAllProjects } from '../models/projects.js';
 
 const showAllProjects = async (req, res) => {
     const title = 'Service Projects';
