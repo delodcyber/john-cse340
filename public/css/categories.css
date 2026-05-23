@@ -1,0 +1,48 @@
+/* Category page card styles */
+main ul {
+    display: grid;
+    gap: 20px;
+    padding: 0;
+}
+
+main ul li {
+    list-style: none;
+    background-color: #ffffff;
+    border: 1px solid rgba(52, 73, 94, 0.08);
+    border-radius: 20px;
+    box-shadow: 0 14px 38px rgba(44, 62, 80, 0.06);
+    padding: 22px;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+main ul li:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 24px 52px rgba(44, 62, 80, 0.1);
+}
+
+main ul li a {
+    display: inline-block;
+    color: #2c3e50;
+    font-size: 1.15rem;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 10px 16px;
+    border-radius: 14px;
+    background-color: #f5f7fa;
+    transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+main ul li a:hover {
+    background-color: #d6e9f8;
+    color: #2471a3;
+}
+
+@media (max-width: 768px) {
+    main ul {
+        gap: 16px;
+    }
+
+    main ul li {
+        padding: 18px;
+    }
+}
