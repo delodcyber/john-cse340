@@ -23,6 +23,14 @@
             <% if (project.organization_name) { %>
                 <p><strong>Organization:</strong> <a href="/organization/<%= project.organization_id %>"><%= project.organization_name %></a></p>
             <% } %>
+            
+            <% if (project.categories && project.categories.length) { %>
+                <p><strong>Categories:</strong>
+                <% project.categories.forEach((cat, idx) => { %>
+                    <a class="tag" href="/category/<%= cat.category_id %>"><%= cat.category_name %></a><%= idx < project.categories.length - 1 ? ' ' : '' %>
+                <% }) %>
+                </p>
+            <% } %>
         </div>
     <% } %>
 </main>

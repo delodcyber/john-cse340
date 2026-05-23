@@ -1,4 +1,5 @@
 import { getUpcomingProjects, getProjectDetails } from '../models/projects.js';
+import { getCategoriesByProjectId } from '../models/category.js';
 
 // Set the number of upcoming projects to display on the main projects page
 const NUMBER_OF_UPCOMING_PROJECTS = 5;
@@ -9,7 +10,7 @@ const showAllProjects = async (req, res) => {
     let errorMessage = null;
 
     try {
-        // Call the new function to get upcoming projects (limited to NUMBER_OF_UPCOMING_PROJECTS)
+        // Call the function to get upcoming projects (limited to NUMBER_OF_UPCOMING_PROJECTS)
         projects = await getUpcomingProjects(NUMBER_OF_UPCOMING_PROJECTS);
     } catch (error) {
         console.error('Failed to load projects:', error);
@@ -19,7 +20,7 @@ const showAllProjects = async (req, res) => {
     res.render('projects', { title, projects, errorMessage });
 };
 
-// NEW FUNCTION: Show details for a single project
+// Show details for a single project
 const showProjectDetailsPage = async (req, res) => {
     const projectId = req.params.id;
     const title = 'Project Details';
@@ -27,12 +28,14 @@ const showProjectDetailsPage = async (req, res) => {
     let errorMessage = null;
 
     try {
-        // Use the new getProjectDetails function to get a single project by ID
         project = await getProjectDetails(projectId);
-        
-        // If project is not found, set an error message
+
         if (!project) {
             errorMessage = 'Project not found.';
+        } else {
+            // Fetch categories for this project and attach to project
+            const categories = await getCategoriesByProjectId(projectId);
+            project.categories = categories;
         }
     } catch (error) {
         console.error('Failed to load project details:', error);
