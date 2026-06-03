@@ -5,7 +5,8 @@ import { showAllProjects, showProjectDetailsPage } from './controllers/projects.
 import { showHomePage } from './controllers/index.js';
 import { show404Page, show500Page } from './controllers/errors.js';
 import { showOrganizationDetailsPage } from './controllers/organizations.js';
-
+import { showNewOrganizationForm } from './controllers/organizations.js';
+import { processNewOrganizationForm } from './controllers/organizations.js';
 
 const router = express.Router();
 //  Routes to use templates instead of static files
@@ -18,5 +19,9 @@ router.get('/project/:id', showProjectDetailsPage);
 router.get('/404', show404Page);
 router.get('/500', show500Page);
 router.get('/', showHomePage); 
+// Route for new organization page
+router.get('/new-organization', showNewOrganizationForm);
+// Route to handle new organization form submission
+router.post('/new-organization', processNewOrganizationForm);
 
 export default router;
