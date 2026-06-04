@@ -40,3 +40,23 @@ const showCategoryDetails = async (req, res) => {
 };
 
 export { showAllCategories, showCategoryDetails };
+
+
+const showNewCategoryForm = async (req, res) => {
+    const title = 'Add New Category';
+
+    res.render('new-category', { title });
+};
+
+export { showNewCategoryForm };
+
+const processNewCategoryForm = async (req, res) => {
+    // For now, just log the form data and redirect back to the categories page
+    const { name } = req.body;
+    const categoryId = await createCategory(name);
+    // Set a success flash message
+    req.flash('success', 'Category added successfully!');
+    res.redirect(`/categories/${categoryId}`); // Redirect to the new category's details page
+};
+
+export { processNewCategoryForm };
