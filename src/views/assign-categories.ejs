@@ -3,9 +3,10 @@
     <h1><%= projectDetails.title %></h1>
 
     <h2>Assign Categories</h2>
+ <div class="project-form">
  <form action="/assign-categories/<%= projectId %>" method="POST">
 
-    <div class="form-group">
+    <div class="form-group checkbox-grid">
       <% categories.forEach(category => { %>
         <div>
           <input
@@ -15,12 +16,17 @@
             value="<%= category.category_id %>"
             <%= assignedCategories.some(ac => ac.category_id === category.category_id) ? 'checked' : '' %>
           />
-          <label for="category-<%= category.category_id %>"><%= category.name %></label>
+          <label for="category-<%= category.category_id %>"><%= category.category_name %></label>
         </div>
       <% }); %>
     </div>
 
-    <button type="submit">Update Categories</button>
+    <div class="category-actions">
+      <button class="btn btn-primary" type="submit">Update Categories</button>
+      <a class="btn btn-secondary" href="/project/<%= projectId %>">Cancel</a>
+    </div>
+  </form>
+  </div>
 
 </main>
 <%- include('partials/footer') %>

@@ -2,6 +2,7 @@
 <main>
     <h1><%= title %></h1>
 
+    <div class="organization-form">
     <form action="/edit-organization/<%= organizationDetails.organization_id %>" method="POST">
         <div class="form-group">
         <label for="name">Organization Name:</label>
@@ -44,7 +45,11 @@
         maxlength="255"
          />
 
-        <button type="submit">Update Organization</button>
-    </form>
+                <div class="category-actions">
+                    <button class="btn btn-primary" type="submit">Update Organization</button>
+                    <a class="btn btn-secondary" href="/organizations">Cancel</a>
+                </div>
+        </form>
+        </div>
 </main>
 <%- include ('partials/footer') %>

@@ -12,6 +12,7 @@ import {
     processNewCategoryForm,
     categoryValidation
  } from './controllers/categories.js';
+import { showEditCategoryForm, processEditCategoryForm } from './controllers/categories.js';
 import { organizationValidation } from './controllers/organizations.js';
 import { showEditOrganizationForm } from './controllers/organizations.js';
 import { processEditOrganizationForm } from './controllers/organizations.js';
@@ -44,6 +45,9 @@ router.post('/new-organization', organizationValidation, processNewOrganizationF
 router.get('/new-category', showNewCategoryForm);
 // Route to handle new category form submission
 router.post('/new-category', categoryValidation, processNewCategoryForm);
+// Routes to edit a category
+router.get('/edit-category/:id', showEditCategoryForm);
+router.post('/edit-category/:id', categoryValidation, processEditCategoryForm);
 // Route for editing an organization
 router.get('/edit-organization/:id', showEditOrganizationForm);
 

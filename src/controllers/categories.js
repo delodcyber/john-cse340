@@ -1,4 +1,5 @@
-import { getAllCategories, getCategoryById, getProjectsByCategoryId } from '../models/category.js';
+import { getAllCategories, getCategoryById, getProjectsByCategoryId, getCategoriesByProjectId, updateCategory, updateCategoryAssignments } from '../models/category.js';
+import { getProjectDetails } from '../models/projects.js';
 import { body, validationResult } from 'express-validator';
 import { createCategory } from '../models/new-category.js';
 
@@ -69,27 +70,52 @@ const processNewCategoryForm = async (req, res) => {
     const categoryId = await createCategory(name);
     // Set a success flash message
     req.flash('success', 'Category added successfully!');
-    res.redirect(`/categories/${categoryId}`); // Redirect to the new category's details page
+    res.redirect(`/category/${categoryId}`); // Redirect to the new category's details page
 };
 
 const categoryValidation = [
     body('name')
         .trim()
         .notEmpty().withMessage('Name is required')
-        .isLength({ min: 3, max: 200 })
-        .withMessage('Name must be between 3 and 200 characters')
+        .isLength({ min: 3, max: 100 })
+        .withMessage('Name must be between 3 and 100 characters')
         .matches(/^[A-Za-z0-9 ]+$/)
         .withMessage('Name can only contain letters, numbers, and spaces')
 ];
 
 export { processNewCategoryForm, categoryValidation };
 
+// Show edit category form
+const showEditCategoryForm = async (req, res) => {
+    const categoryId = req.params.id;
+    const title = 'Edit Category';
+    const category = await getCategoryById(categoryId);
+    res.render('edit-category', { title, category });
+};
+
+// Process edit category submission
+const processEditCategoryForm = async (req, res) => {
+    const categoryId = req.params.id;
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        errors.array().forEach(error => req.flash('error', error.msg));
+        return res.redirect(`/edit-category/${categoryId}`);
+    }
+
+    const { name } = req.body;
+    await updateCategory(categoryId, name);
+    req.flash('success', 'Category updated successfully!');
+    res.redirect(`/category/${categoryId}`);
+};
+
+export { showEditCategoryForm, processEditCategoryForm };
+
 const showAssignCategoriesForm = async (req, res) => {
     const projectId = req.params.projectId;
 
     const projectDetails = await getProjectDetails(projectId);
     const categories = await getAllCategories();
-    const assignedCategories = await getCategoriesByServiceProjectId(projectId);
+    const assignedCategories = await getCategoriesByProjectId(projectId);
 
     const title = 'Assign Categories to Project';
 

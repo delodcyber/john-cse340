@@ -3,6 +3,7 @@
     <h1><%= title %></h1>
 
  <form action="/new-project" method="POST">
+<div class="project-form">
     <div class="form-group">
       <label for="title">Project Title</label>
       <input
@@ -59,7 +60,11 @@
       </select>
     </div>
 
-    <button type="submit">Create Project</button>
-
-</main>
+    <div class="category-actions">
+      <button class="btn btn-primary" type="submit">Create Project</button>
+      <a class="btn btn-secondary" href="/projects">Cancel</a>
+    </div>
+    </div>
+    </form>
+  </main>
 <%- include('partials/footer') %>
