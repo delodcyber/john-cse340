@@ -8,11 +8,22 @@ import { showOrganizationDetailsPage } from './controllers/organizations.js';
 import { showNewOrganizationForm } from './controllers/organizations.js';
 import { processNewOrganizationForm } from './controllers/organizations.js';
 import { showNewCategoryForm } from './controllers/categories.js';
-import { processNewCategoryForm } from './controllers/categories.js';
+import { 
+    processNewCategoryForm,
+    categoryValidation
+ } from './controllers/categories.js';
 import { organizationValidation } from './controllers/organizations.js';
 import { showEditOrganizationForm } from './controllers/organizations.js';
 import { processEditOrganizationForm } from './controllers/organizations.js';
-
+import {
+    showNewProjectForm,
+    processNewProjectForm,
+    projectValidation
+} from './controllers/projects.js';
+import {
+    showAssignCategoriesForm,
+    processAssignCategoriesForm
+} from './controllers/categories.js';
 
 const router = express.Router();
 //  Routes to use templates instead of static files
@@ -32,11 +43,18 @@ router.post('/new-organization', organizationValidation, processNewOrganizationF
 // Route for new category page
 router.get('/new-category', showNewCategoryForm);
 // Route to handle new category form submission
-router.post('/new-category', processNewCategoryForm);
+router.post('/new-category', categoryValidation, processNewCategoryForm);
 // Route for editing an organization
 router.get('/edit-organization/:id', showEditOrganizationForm);
 
 // Route to handle edit organization form submission
 router.post('/edit-organization/:id', organizationValidation, processEditOrganizationForm);
+// Routes for new project page and form submission
+router.get('/new-project', showNewProjectForm);
+router.post('/new-project', projectValidation, processNewProjectForm);
+
+// Routes to handle the assign categories to project form
+router.get('/assign-categories/:projectId', showAssignCategoriesForm);
+router.post('/assign-categories/:projectId', processAssignCategoriesForm);
 
 export { router };
