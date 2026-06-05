@@ -9,6 +9,7 @@ import { showNewOrganizationForm } from './controllers/organizations.js';
 import { processNewOrganizationForm } from './controllers/organizations.js';
 import { showNewCategoryForm } from './controllers/categories.js';
 import { processNewCategoryForm } from './controllers/categories.js';
+import { organizationValidation } from './controllers/organizations.js';
 
 const router = express.Router();
 //  Routes to use templates instead of static files
@@ -24,7 +25,7 @@ router.get('/', showHomePage);
 // Route for new organization page
 router.get('/new-organization', showNewOrganizationForm);
 // Route to handle new organization form submission
-router.post('/new-organization', processNewOrganizationForm);
+router.post('/new-organization', organizationValidation, processNewOrganizationForm);
 // Route for new category page
 router.get('/new-category', showNewCategoryForm);
 // Route to handle new category form submission
