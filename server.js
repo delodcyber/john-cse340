@@ -3,7 +3,7 @@ import session from 'express-session';
 import { fileURLToPath } from 'url';
 import path from 'path';
 import { testConnection } from './src/models/db.js';
-import router from './src/routes.js';
+import { router } from './src/routes.js';
 import { flash } from './src/middleware/flash.js';
 
 // Define the the application environment
