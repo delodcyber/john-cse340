@@ -35,7 +35,12 @@
     <% } %>
     <% if (project) { %>
         <div class="page-actions">
-            <a class="btn btn-primary" href="/assign-categories/<%= project.project_id %>">Edit Project Categories</a>
+            <div class="page-actions-left">
+                <a class="btn btn-back" href="/projects">Back</a>
+            </div>
+            <div class="page-actions-right">
+                <a class="btn btn-primary" href="/assign-categories/<%= project.project_id %>">Edit Project Categories</a>
+            </div>
         </div>
     <% } %>
 </main>

@@ -27,7 +27,12 @@
     <% } %>
     <% if (category) { %>
         <div class="page-actions">
-            <a class="btn btn-primary" href="/edit-category/<%= category.category_id %>">Edit Category Information</a>
+            <div class="page-actions-left">
+                <a class="btn btn-back" href="/categories">Back</a>
+            </div>
+            <div class="page-actions-right">
+                <a class="btn btn-primary" href="/edit-category/<%= category.category_id %>">Edit Category Information</a>
+            </div>
         </div>
     <% } %>
 </main>
