@@ -335,6 +335,13 @@ textarea { min-height: 120px; resize: vertical; }
 .page-actions-left, .page-actions-right {
     display: flex;
     align-items: center;
+    flex: 1;
+}
+.page-actions-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
 }
 
 /* Visible, warm-toned Back button with soft ambient shadow */

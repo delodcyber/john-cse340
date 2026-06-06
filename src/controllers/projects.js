@@ -1,4 +1,4 @@
-import { getUpcomingProjects, getProjectDetails } from '../models/projects.js';
+import { getUpcomingProjects, getProjectDetails, updateProject } from '../models/projects.js';
 import { getCategoriesByProjectId } from '../models/category.js';
 import { createProject } from '../models/projects.js';
 import { getAllOrganizations } from '../models/organization.js';
@@ -105,4 +105,51 @@ const projectValidation = [
         .isInt().withMessage('Organization must be a valid integer')
 ];
 
-export { showAllProjects, showProjectDetailsPage, showNewProjectForm, processNewProjectForm, projectValidation };
+// (exports moved to bottom to include edit handlers)
+
+// Show the edit form populated with existing project data
+const showEditProjectForm = async (req, res) => {
+    const projectId = req.params.id;
+    const title = 'Edit Project';
+
+    try {
+        const project = await getProjectDetails(projectId);
+        if (!project) {
+            req.flash('error', 'Project not found');
+            return res.redirect('/projects');
+        }
+
+        const organizations = await getAllOrganizations();
+
+        res.render('edit-project', { title, project, organizations });
+    } catch (error) {
+        console.error('Failed to load edit project form:', error);
+        req.flash('error', 'Unable to load edit form at this time');
+        res.redirect('/projects');
+    }
+};
+
+// Process the submitted edit form
+const processEditProjectForm = async (req, res) => {
+    const errors = validationResult(req);
+    const projectId = req.params.id;
+
+    if (!errors.isEmpty()) {
+        errors.array().forEach((error) => req.flash('error', error.msg));
+        return res.redirect(`/edit-project/${projectId}`);
+    }
+
+    const { title, description, location, date, organizationId } = req.body;
+
+    try {
+        await updateProject(projectId, title, description, location, date, organizationId);
+        req.flash('success', 'Project updated successfully');
+        res.redirect(`/project/${projectId}`);
+    } catch (error) {
+        console.error('Failed to update project:', error);
+        req.flash('error', 'There was an error updating the project');
+        res.redirect(`/edit-project/${projectId}`);
+    }
+};
+
+export { showAllProjects, showProjectDetailsPage, showNewProjectForm, processNewProjectForm, projectValidation, showEditProjectForm, processEditProjectForm };
