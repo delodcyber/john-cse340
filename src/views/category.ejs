@@ -25,6 +25,10 @@
     <% } else { %>
         <p>Category not found.</p>
     <% } %>
-    <a href="/edit-category/<%= category.category_id %>">Edit Category Information</a>
+    <% if (category) { %>
+        <div class="page-actions">
+            <a class="btn btn-primary" href="/edit-category/<%= category.category_id %>">Edit Category Information</a>
+        </div>
+    <% } %>
 </main>
 <%- include('partials/footer') %>

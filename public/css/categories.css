@@ -46,3 +46,24 @@ main ul li a:hover {
         padding: 18px;
     }
 }
+
+.page-actions { margin-top: 22px; text-align: right; }
+.page-actions .btn { padding: 10px 16px; }
+
+/* Edit / New category form styles */
+.category-form {
+    max-width: 680px;
+    margin: 10px auto 40px auto;
+    background: #fff;
+    padding: 22px;
+    border-radius: 12px;
+    box-shadow: 0 12px 30px rgba(44,62,80,0.06);
+}
+
+.category-form .form-group { margin-bottom: 14px; }
+
+.category-actions { display:flex; gap:12px; align-items:center; }
+
+@media (max-width: 768px) {
+    .category-form { padding: 16px; }
+}

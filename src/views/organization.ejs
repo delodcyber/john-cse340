@@ -33,7 +33,9 @@
         <p>Organization not found.</p>
     <% } %>
     <% if (organizationDetails) { %>
-        <p><a href="/edit-organization/<%= organizationDetails.organization_id %>">Edit Organization</a></p>
+        <div class="page-actions">
+            <a class="btn btn-primary" href="/edit-organization/<%= organizationDetails.organization_id %>">Edit Organization</a>
+        </div>
     <% } %>
 </main>
 <%- include('partials/footer') %>
