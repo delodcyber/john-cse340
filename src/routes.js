@@ -43,6 +43,7 @@ import {
     processLoginForm,
     processLogout,
     showDashboard,
+    showAllUsers,
     requireLogin,
     requireRole
 } from './controllers/users.js';
@@ -98,5 +99,7 @@ router.get('/logout', processLogout);
 
 // Dashboard route (protected)
 router.get('/dashboard', requireLogin, showDashboard);
+// Admin users list
+router.get('/users', requireRole('admin'), showAllUsers);
 
 export { router };

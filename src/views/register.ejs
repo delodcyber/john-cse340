@@ -3,6 +3,7 @@
     <h1><%= title %></h1>
 
     <form action="/register" method="POST">
+        <div class="auth-form">
         <div class="form-group">
             <label for="name">Name</label>
             <input
@@ -32,8 +33,11 @@
                 required
             />
         </div>
-
-        <button type="submit">Register</button>
+        <div class="category-actions">
+            <button class="btn btn-primary" type="submit">Register</button>
+            <a class="btn btn-secondary" href="/">Cancel</a>
+        </div>
+        </div>
     </form>
 
 </main>
