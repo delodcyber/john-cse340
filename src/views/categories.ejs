@@ -16,7 +16,9 @@
         <p>No service categories available.</p>
     <% } %>
     <div class="page-actions">
-        <a class="btn btn-primary" href="/new-category">Add a new category</a>
+        <% if (user && user.role_name === 'admin') { %>
+            <a class="btn btn-primary" href="/new-category">Add a new category</a>
+        <% } %>
     </div>
 </main>
 <%- include('partials/footer') %>

@@ -26,7 +26,9 @@
         <% } %>
     </ul>
     <div class="page-actions">
-        <a class="btn btn-primary" href="/new-organization">Add a new organization</a>
+        <% if (user && user.role_name === 'admin') { %>
+            <a class="btn btn-primary" href="/new-organization">Add a new organization</a>
+        <% } %>
     </div>
 </main>
 <%- include('partials/footer') %>
