@@ -1,30 +1,49 @@
 import express from 'express';
-import {showAllOrganizations} from './controllers/organizations.js';
-import { showAllCategories, showCategoryDetails } from './controllers/categories.js';
-import { showAllProjects, showProjectDetailsPage, showEditProjectForm, processEditProjectForm } from './controllers/projects.js';
+import { 
+    showAllCategories, 
+    showCategoryDetails, 
+    showNewCategoryForm,
+    showAssignCategoriesForm,
+    processAssignCategoriesForm,
+    showEditCategoryForm, 
+    processEditCategoryForm,
+} from './controllers/categories.js';
+import { 
+    showAllProjects, 
+    showProjectDetailsPage, 
+    showEditProjectForm, 
+    processEditProjectForm 
+} from './controllers/projects.js';
 import { showHomePage } from './controllers/index.js';
 import { show404Page, show500Page } from './controllers/errors.js';
-import { showOrganizationDetailsPage } from './controllers/organizations.js';
-import { showNewOrganizationForm } from './controllers/organizations.js';
-import { processNewOrganizationForm } from './controllers/organizations.js';
-import { showNewCategoryForm } from './controllers/categories.js';
+import {
+    showAllOrganizations,
+    showOrganizationDetailsPage,
+    showNewOrganizationForm,
+    processNewOrganizationForm,
+    organizationValidation,
+    showEditOrganizationForm,
+    processEditOrganizationForm
+} from './controllers/organizations.js';
 import { 
     processNewCategoryForm,
     categoryValidation
  } from './controllers/categories.js';
-import { showEditCategoryForm, processEditCategoryForm } from './controllers/categories.js';
-import { organizationValidation } from './controllers/organizations.js';
-import { showEditOrganizationForm } from './controllers/organizations.js';
-import { processEditOrganizationForm } from './controllers/organizations.js';
+
 import {
     showNewProjectForm,
     processNewProjectForm,
     projectValidation
 } from './controllers/projects.js';
-import {
-    showAssignCategoriesForm,
-    processAssignCategoriesForm
-} from './controllers/categories.js';
+
+import { 
+    showUserRegistrationForm, 
+    processUserRegistrationForm,
+    showLoginForm,
+    processLoginForm,
+    processLogout
+} from './controllers/users.js';
+
 
 const router = express.Router();
 //  Routes to use templates instead of static files
@@ -64,5 +83,14 @@ router.post('/edit-project/:id', projectValidation, processEditProjectForm);
 // Routes to handle the assign categories to project form
 router.get('/assign-categories/:projectId', showAssignCategoriesForm);
 router.post('/assign-categories/:projectId', processAssignCategoriesForm);
+
+// User registration routes
+router.get('/register', showUserRegistrationForm);
+router.post('/register', processUserRegistrationForm);
+
+// User login routes
+router.get('/login', showLoginForm);
+router.post('/login', processLoginForm);
+router.get('/logout', processLogout);
 
 export { router };
