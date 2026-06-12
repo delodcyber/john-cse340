@@ -14,6 +14,7 @@ import {
     showEditProjectForm, 
     processEditProjectForm 
 } from './controllers/projects.js';
+import { addVolunteerHandler, removeVolunteerHandler } from './controllers/volunteers.js';
 import { showHomePage } from './controllers/index.js';
 import { show404Page, show500Page } from './controllers/errors.js';
 import {
@@ -57,6 +58,9 @@ router.get('/categories', showAllCategories);
 router.get('/category/:id', showCategoryDetails);
 router.get('/projects', showAllProjects);
 router.get('/project/:id', showProjectDetailsPage);
+// Volunteer routes (require login)
+router.get('/project/:id/volunteer', requireLogin, addVolunteerHandler);
+router.get('/project/:id/unvolunteer', requireLogin, removeVolunteerHandler);
 router.get('/404', show404Page);
 router.get('/500', show500Page);
 router.get('/', showHomePage); 

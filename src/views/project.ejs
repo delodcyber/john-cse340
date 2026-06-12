@@ -47,6 +47,17 @@
                 <% if (user && user.role_name === 'admin') { %>
                     <a class="btn btn-primary" href="/assign-categories/<%= project.project_id %>">Update Project Categories</a>
                 <% } %>
+                <% if (isLoggedIn && project) { %>
+                    <% if (isVolunteer) { %>
+                        <div class="volunteer-status">
+                            <span class="badge">Volunteering</span>
+                            <div><strong>You are volunteering for this project.</strong></div>
+                            <a class="btn-unvolunteer" href="/project/<%= project.project_id %>/unvolunteer">Remove me</a>
+                        </div>
+                    <% } else { %>
+                        <a class="btn-volunteer" href="/project/<%= project.project_id %>/volunteer">Volunteer for this project</a>
+                    <% } %>
+                <% } %>
             </div>
         </div>
     <% } %>

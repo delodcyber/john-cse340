@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt';
 import { createUser } from '../models/users.js';
 import { authenticateUser, getAllUsers } from '../models/users.js';
+import { getVolunteerProjectsForUser } from '../models/volunteers.js';
 
 const showUserRegistrationForm = (req, res) => {
     res.render('register', { title: 'Register' });
@@ -80,12 +81,22 @@ const requireLogin = (req, res, next) => {
 
 export { requireLogin };
 
-const showDashboard = (req, res) => {
+const showDashboard = async (req, res) => {
     const user = req.session.user;
+    let volunteerProjects = [];
+
+    try {
+        volunteerProjects = await getVolunteerProjectsForUser(user.user_id);
+    } catch (error) {
+        console.error('Failed to load volunteered projects for dashboard:', error);
+        req.flash('error', 'Unable to load your volunteered projects at this time.');
+    }
+
     res.render('dashboard', { 
         title: 'Dashboard',
         name: user.name,
-        email: user.email
+        email: user.email,
+        volunteerProjects
     });
 };
 export { showDashboard };

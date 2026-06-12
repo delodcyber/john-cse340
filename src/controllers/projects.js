@@ -1,5 +1,6 @@
 import { getUpcomingProjects, getProjectDetails, updateProject } from '../models/projects.js';
 import { getCategoriesByProjectId } from '../models/category.js';
+import { isUserVolunteerForProject } from '../models/volunteers.js';
 import { createProject } from '../models/projects.js';
 import { getAllOrganizations } from '../models/organization.js';
 import { body, validationResult } from 'express-validator';
@@ -30,6 +31,7 @@ const showProjectDetailsPage = async (req, res) => {
     const title = 'Project Details';
     let project = null;
     let errorMessage = null;
+    let isVolunteer = false;
 
     try {
         project = await getProjectDetails(projectId);
@@ -40,13 +42,21 @@ const showProjectDetailsPage = async (req, res) => {
             // Fetch categories for this project and attach to project
             const categories = await getCategoriesByProjectId(projectId);
             project.categories = categories;
+            // If user is logged in, check volunteer status
+            if (req.session && req.session.user) {
+                try {
+                    isVolunteer = await isUserVolunteerForProject(req.session.user.user_id, projectId);
+                } catch (err) {
+                    console.error('Failed to check volunteer status:', err);
+                }
+            }
         }
     } catch (error) {
         console.error('Failed to load project details:', error);
         errorMessage = 'Unable to load project details at this time.';
     }
 
-    res.render('project', { title, project, errorMessage });
+    res.render('project', { title, project, errorMessage, isVolunteer });
 };
 
 const showNewProjectForm = async (req, res) => {
