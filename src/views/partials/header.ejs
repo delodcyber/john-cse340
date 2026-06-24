@@ -7,8 +7,38 @@
     <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
+    <!-- Sidebar overlay (mobile only) -->
+    <div class="nav-overlay" id="navOverlay" onclick="closeDrawer()"></div>
+
+    <!-- Sidebar drawer -->
+    <aside class="nav-drawer" id="navDrawer">
+        <button class="drawer-close" onclick="closeDrawer()" aria-label="Close menu">✕</button>
+        <ul class="drawer-menu">
+            <li><a href="/">Home</a></li>
+            <li><a href="/organizations">Organizations</a></li>
+            <li><a href="/projects">Projects</a></li>
+            <li><a href="/categories">Categories</a></li>
+        </ul>
+        <div class="drawer-actions">
+            <% if (isLoggedIn) { %>
+                <a class="auth-btn auth-logout" href="/logout">Logout</a>
+            <% } else { %>
+                <a class="auth-btn auth-register" href="/register">Register</a>
+                <a class="auth-btn auth-login" href="/login">Login</a>
+            <% } %>
+        </div>
+    </aside>
+
     <nav>
         <div class="nav-inner">
+            <!-- Hamburger (mobile only) -->
+            <button class="hamburger" id="hamburger" onclick="openDrawer()" aria-label="Open menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <!-- Desktop menu -->
             <ul class="menu">
                 <li><a href="/">Home</a></li>
                 <li><a href="/organizations">Organizations</a></li>
@@ -26,13 +56,25 @@
             </div>
         </div>
     </nav>
+
     <% const messages = flash(); %>
     <% Object.keys(messages).forEach(type => { %>
         <% if (messages[type].length > 0) { %>
-            
-                <% messages[type].forEach(msg => { %>
-                    <%= msg %>
-                <% }); %>
-            
+            <% messages[type].forEach(msg => { %>
+                <%= msg %>
+            <% }); %>
         <% } %>
     <% }); %>
+
+<script>
+    function openDrawer() {
+        document.getElementById('navDrawer').classList.add('open');
+        document.getElementById('navOverlay').classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+    function closeDrawer() {
+        document.getElementById('navDrawer').classList.remove('open');
+        document.getElementById('navOverlay').classList.remove('open');
+        document.body.style.overflow = '';
+    }
+</script>
