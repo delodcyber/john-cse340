@@ -220,6 +220,18 @@ VALUES
 (10, 4), -- Winter Clothing Drive (well-being support)
 (11, 4); -- Senior Support Visits
 
+
+CREATE TABLE roles (
+    role_id SERIAL PRIMARY KEY,
+    role_name VARCHAR(50) UNIQUE NOT NULL,
+    role_description TEXT
+);
+
+INSERT INTO roles (role_name, role_description) VALUES 
+    ('user', 'Standard user with basic access'),
+    ('admin', 'Administrator with full system access');
+
+
 CREATE TABLE users (
     user_id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
@@ -233,6 +245,15 @@ CREATE TABLE users (
 INSERT INTO users (name, email, password_hash, role_id) 
 VALUES ('testuser', 'test@example.com', 'placeholder_hash', 1);
 
+-- Join users and roles to see complete information
+SELECT u.user_id, u.name, u.email, r.role_name, r.role_description
+FROM users u
+JOIN roles r ON u.role_id = r.role_id;
+
+-- Delete the test user
+DELETE FROM users WHERE email = 'test@example.com';
+
+UPDATE users SET role_id = (SELECT role_id FROM roles WHERE role_name = 'admin') WHERE email = 'admin@example.com';
 
 -- ==============================
 -- Volunteer Table (Junction)
